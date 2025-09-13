@@ -2,8 +2,8 @@ import re
 
 def top_3_words(text):
     
-    text_arr = re.sub(r"[^a-z']", " ", text)
-    text_arr = text_arr.lower().split()
+    text_arr = re.sub(r"[^a-z']", " ", text.lower())
+    text_arr = text_arr.split()
     text_arr = [x for x in text_arr if re.search(r"[a-z]", x)]
 
     matching_dict = {}
