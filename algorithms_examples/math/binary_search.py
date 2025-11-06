@@ -4,7 +4,7 @@ def bin_search(arr):
     target = 9
     
     while l <= r:
-        m = l + ((r - l) // 2)
+        m = (r + l) // 2
         if arr[m] < target:
             l =  m + 1
         elif arr[m] > target:
