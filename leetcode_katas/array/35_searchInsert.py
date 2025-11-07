@@ -15,7 +15,7 @@ class Solution(object):
         while l <= r:
             mid = (r + l) // 2
 
-            if nums[mid] == target:
+            if nums[mid] == target: 
                 return mid
 
             elif target > nums[mid]:
@@ -27,4 +27,4 @@ class Solution(object):
         return l
 
     
-Solution().searchInsert([1,3,5,6], 0)
+Solution().searchInsert([1,3,5,6], 2)
