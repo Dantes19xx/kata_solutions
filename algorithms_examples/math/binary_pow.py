@@ -1,14 +1,14 @@
-def bin_pow(self, a, x):
+def bin_pow(a, x):
     if x == 0:
         return 1
     
     if x < 0:
-        return 1 / self.bin_pow(a, -x)
+        return 1 / bin_pow(a, -x)
     
     if x % 2 == 1:
-        return self.bin_pow(a, x-1) * a
+        return bin_pow(a, x-1) * a
     
-    b = self.bin_pow(a, x//2)
+    b = bin_pow(a, x//2)
 
     return b * b
 
