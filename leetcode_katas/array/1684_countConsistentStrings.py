@@ -7,14 +7,20 @@ class Solution(object):
         """
         
         res = 0
-        s = sorted(set(allowed))
 
         for word in words:
-            w = sorted(set(word))
-            
-            while 
+            j = 0
+            is_cons = True
 
-        a = 1
+            while j < len(word) and is_cons:
+                if word[j] not in allowed:
+                    is_cons = False
+                j += 1
+
+            if is_cons:
+                res += 1
+
+        return res
 
     
-Solution().countConsistentStrings("cad", ["cc","acd","b","ba","bac","bad","ac","d"])
+Solution().countConsistentStrings("abc", ["a","b","c","ab","ac","bc","abc"])
