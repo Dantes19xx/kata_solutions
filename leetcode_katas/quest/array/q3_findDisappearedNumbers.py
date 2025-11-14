@@ -5,14 +5,13 @@ class Solution(object):
         :rtype: List[int]
         """
         
-        n = len(nums)
-        nums.sort()
-        res = []
+        ans = []
+        s = set(nums)
 
-        for i in range(1, n):
-            if nums[i] - nums[i - 1] > 1:
-                res.append(nums[i-1])
+        for i in range(1, len(nums) + 1):
+            if i not in s:
+                ans.append(i)
 
-        a = 1
+        return ans
     
-Solution().findDisappearedNumbers([4,3,2,7,8,2,3,1])
+Solution().findDisappearedNumbers([7,3,3,1,2,8,8,4])
