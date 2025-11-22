@@ -5,12 +5,10 @@ class Solution(object):
         :rtype: List[int]
         """
         
-        output = []
-        local_sum = 0
+        output = [nums[0]]
 
-        for i in nums:
-            local_sum += i
-            output.append(local_sum)
+        for i in range(1, len(nums)):
+            output.append(nums[i] + output[-1])
 
         return output
 
