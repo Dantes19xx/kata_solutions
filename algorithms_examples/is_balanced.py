@@ -45,4 +45,4 @@ def is_balanced(s: str) -> bool:
 
 
 
-is_balanced("()]({[]}())")
+is_balanced("()({[]}())")
