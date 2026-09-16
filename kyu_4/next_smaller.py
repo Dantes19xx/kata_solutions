@@ -1,28 +1,30 @@
 def next_smaller(n):
-    n = list(str(n))
-    pivot_idx = -1
+    digits = list(str(n))
 
-    for i in range(len(n)-2, -1, -1):
-        if int(n[i]) > int(n[i+1]):
-            pivot_idx = i
-            break
+    # Ищем pivot: первую цифру справа,
+    # которая больше цифры после неё.
+    pivot = len(digits) - 2
 
-    if pivot_idx == -1:
+    while pivot >= 0 and digits[pivot] <= digits[pivot + 1]:
+        pivot -= 1
+
+    if pivot < 0:
         return -1
 
-    max_smaller_idx = -1
-    for j in range(len(n)-1, pivot_idx, -1):
-        if int(n[j]) < int(n[pivot_idx]):
-            if max_smaller_idx == -1 or int(n[j]) > int(n[max_smaller_idx]):
-                max_smaller_idx = j
+    # Ищем справа первую цифру, меньшую pivot.
+    swap_idx = len(digits) - 1
 
-    n[pivot_idx], n[max_smaller_idx] = n[max_smaller_idx], n[pivot_idx]
+    while digits[swap_idx] >= digits[pivot]:
+        swap_idx -= 1
 
-    right_side = sorted(n[pivot_idx+1:], reverse=True)
-    left_side = n[:pivot_idx+1]
+    # Меняем цифры местами.
+    digits[pivot], digits[swap_idx] = digits[swap_idx], digits[pivot]
 
-    if left_side[0] == "0":
+    # Делаем хвост максимально большим.
+    digits[pivot + 1:] = sorted(digits[pivot + 1:], reverse=True)
+
+    # Нельзя получить число с ведущим нулём.
+    if digits[0] == "0":
         return -1
 
-    res = int("".join(left_side + right_side))
-    return res
+    return int("".join(digits))
