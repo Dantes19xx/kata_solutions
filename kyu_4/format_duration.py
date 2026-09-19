@@ -1,48 +1,30 @@
-def format_duration(seconds):
-    """
-    Your task in order to complete this Kata is to write a function which 
-    formats a duration, given as a number of seconds, in a human-friendly way.
-
-    The function must accept a non-negative integer. If it is zero, it just returns "now". 
-    Otherwise, the duration is expressed as a combination of years, days, hours, minutes and seconds.
-
-    It is much easier to understand with an example:
-
-    * For seconds = 62, your function should return 
-    "1 minute and 2 seconds"
-    * For seconds = 3662, your function should return
-    For the purpose of this Kata, a year is 365 days and a day is 24 hours.
-    "1 hour, 1 minute and 2 seconds"""
-    
-    if not seconds:
+def format_duration(seconds: int) -> str:
+    if seconds == 0:
         return "now"
-    
-    minutes = seconds // 60
-    seconds = seconds % 60
-    
-    hours = minutes // 60
-    minutes = minutes % 60
 
-    days = hours // 24
-    hours = hours % 24
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    years, days = divmod(days, 365)
 
-    years = days // 365
-    days = days % 365
+    def format_unit(value: int, unit: str) -> str:
+        if value == 0:
+            return ""
 
-    calculated_time_arr = []
+        suffix = "" if value == 1 else "s"
+        return f"{value} {unit}{suffix}"
 
-    calculated_time_arr.append(f"{years} year" if years == 1 else f"{years} years" if years else "")
-    calculated_time_arr.append(f"{days} day" if days == 1 else f"{days} days" if days else "")
-    calculated_time_arr.append(f"{hours} hour" if hours == 1 else f"{hours} hours" if hours else "")
-    calculated_time_arr.append(f"{minutes} minute" if minutes == 1 else f"{minutes} minutes" if minutes else "")
-    calculated_time_arr.append(f"{seconds} second" if seconds == 1 else f"{seconds} seconds" if seconds else "")
+    parts = [
+        format_unit(years, "year"),
+        format_unit(days, "day"),
+        format_unit(hours, "hour"),
+        format_unit(minutes, "minute"),
+        format_unit(seconds, "second"),
+    ]
 
-    calculated_time_arr = [i for i in calculated_time_arr if i]
+    parts = [part for part in parts if part]
 
-    human_readable = ", ".join(calculated_time_arr[:len(calculated_time_arr)-1])
+    if len(parts) == 1:
+        return parts[0]
 
-    if not human_readable:
-        return calculated_time_arr[0]
-    
-    else:
-        return f"{human_readable} and {calculated_time_arr[-1]}"
+    return ", ".join(parts[:-1]) + " and " + parts[-1]
