@@ -1,34 +1,14 @@
-# 8 + 1 = 9 and 92 = 81
-# 512 = 5 + 1 + 2 = 8 and 83 = 512
-
-from math import pow
-
-def digit_parsing_sum(d: int) -> tuple[int, int]:
-    s = str(d)
-    return sum(map(int, s)), len(s)
-
-
 def pow_sum_dig_term(n: int) -> int:
-    if n == 1:
-        return 81
-    
-    res_array: list[int] = [81]
-    current_digit: int = 82
+    current = 81
+    found = 0
 
-    while len(res_array) < n:
-        parsed_and_summed, power = digit_parsing_sum(current_digit)
-        parsed_and_powered: int = 1
+    while True:
+        digits = str(current)
 
-        parsed_and_powered = pow(parsed_and_summed, power)
+        if sum(map(int, digits)) ** len(digits) == current:
+            found += 1
 
-        if parsed_and_powered == current_digit:
-            res_array.append(current_digit)
+            if found == n:
+                return current
 
-            if len(res_array) == n:
-                return current_digit
-        
-        current_digit += 1
-        # print(current_digit)
-
-
-pow_sum_dig_term(2)
+        current += 1
